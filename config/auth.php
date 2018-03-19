@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => Sitetpl\User::class,
+            'model' => Sitetpl\Models\User::class,
         ],
 
         // 'users' => [
