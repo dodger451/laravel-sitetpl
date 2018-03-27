@@ -20,6 +20,7 @@ class ForgotPasswordController extends Controller
 
     use SendsPasswordResetEmails;
 
+    
     /**
      * Create a new controller instance.
      *
@@ -31,6 +32,15 @@ class ForgotPasswordController extends Controller
     }
 
     /**
+     * Display the form to request a password reset link.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showLinkRequestForm()
+    {
+        return view('admin.auth.passwords.email');
+    }
+    /**
      * Get the guard to be used during authentication.
      *
      * @return \Illuminate\Contracts\Auth\StatefulGuard
@@ -39,4 +49,15 @@ class ForgotPasswordController extends Controller
     {
         return Auth::guard('admin');
     }
+
+    /**
+     * Get the broker to be used during password reset.
+     *
+     * @return PasswordBroker
+     */
+    public function broker()
+    {
+        return \Password::broker('admins');
+    }
+
 }
