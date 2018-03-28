@@ -109,7 +109,7 @@ class AdminsController extends Controller
 
         $admin->save();
 
-        return redirect()->route('admins.index')->with('success', trans('general.form.flash.updated',['name' => $admin->name]));
+        return redirect()->route('admin.admins.index')->with('success', trans('general.form.flash.updated',['name' => $admin->name]));
 
     }
 
@@ -123,7 +123,7 @@ class AdminsController extends Controller
     {
         $admin->delete();
 
-        return redirect()->route('admins.index')->with('success', trans('general.form.flash.deleted',['name' => $admin->name]));
+        return redirect()->route('admin.admins.index')->with('success', trans('general.form.flash.deleted',['name' => $admin->name]));
 
     }
 }

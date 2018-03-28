@@ -8,12 +8,12 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>{{ _('Create Admin') }} <a href="{{route('admins.index')}}" class="btn btn-info btn-xs"><i class="fa fa-chevron-left"></i> {{ __('back') }} </a></h2>
+                        <h2>{{ _('Create Admin') }} <a href="{{route('admin.admins.index')}}" class="btn btn-info btn-xs"><i class="fa fa-chevron-left"></i> {{ __('back') }} </a></h2>
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
                         <br />
-                        <form method="post" action="{{ route('admins.store') }}" data-parsley-validate class="form-horizontal form-label-left">
+                        <form method="post" action="{{ route('admin.admins.store') }}" data-parsley-validate class="form-horizontal form-label-left">
 
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">{{ __('name') }} <span class="required">*</span>

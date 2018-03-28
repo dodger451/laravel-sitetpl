@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Admin Index') }} <a href="{{route('admins.create')}}" class="btn btn-primary btn-xs"><i class="fa fa-plus"></i> {{ __('create') }}</a></div>
+                <div class="card-header">{{ __('Admin Index') }} <a href="{{route('admin.admins.create')}}" class="btn btn-primary btn-xs"><i class="fa fa-plus"></i> {{ __('create') }}</a></div>
 
                 <div class="card-body">
                     @if (session('status'))

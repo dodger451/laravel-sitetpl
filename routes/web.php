@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {
 
     Route::group(['middleware' => ['auth:admin']], function () {
         // Protected Routes
@@ -25,14 +25,14 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     });
     
     // Authentication Admin Routes...
-    $this->get('login', 'Auth\LoginController@showLoginForm')->name('admin.login');
+    $this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
     $this->post('login', 'Auth\LoginController@login');
-    $this->post('logout', 'Auth\LoginController@logout')->name('admin.logout');
+    $this->post('logout', 'Auth\LoginController@logout')->name('logout');
 
     // Password Reset Admin Routes...
-    $this->get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
-    $this->post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
-    $this->get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('admin.password.reset');
+    $this->get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+    $this->post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+    $this->get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
     $this->post('password/reset', 'Auth\ResetPasswordController@reset');
 
 });
