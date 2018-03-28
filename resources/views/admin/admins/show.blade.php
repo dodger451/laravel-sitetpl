@@ -14,7 +14,29 @@
                         </div>
                     @endif
 
-                    here be details
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <td>{{ __('ID') }}</td>
+                                <td>{{ __('Name') }}</td>
+                                <td>{{ __('Email') }}</td>
+                                <td>{{ __('Actions') }}</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{ $admin->id }}</td>
+                                    <td>{{ $admin->name }}</td>
+                                    <td>{{ $admin->email }}</td>
+
+                                    <td>
+
+                                        <a class="btn btn-small btn-info" href="{{ route('admin.admins.edit', ['id' => $admin->id]) }}">{{ __('Edit') }}</a>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                 </div>
             </div>
         </div>
