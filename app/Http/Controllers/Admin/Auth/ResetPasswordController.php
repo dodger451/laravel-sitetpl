@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 use Sitetpl\Http\Controllers\Admin\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
-
+use Illuminate\Http\Request;
 class ResetPasswordController extends Controller
 {
     /*
@@ -66,5 +66,14 @@ class ResetPasswordController extends Controller
         return Auth::guard('admin');
     }
 
-    
+    /**
+     * Get the broker to be used during password reset.
+     *
+     * @return PasswordBroker
+     */
+    public function broker()
+    {
+        return \Password::broker('admins');
+    }
+
 }
