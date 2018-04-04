@@ -5,21 +5,13 @@ namespace Tests\Browser;
 use Sitetpl\Models\Admin;
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+
 
 
 class AdminAuthTest extends DuskTestCase
 {
-    use DatabaseMigrations;
-    /*protected function setUp()
-    {
-        echo "setUp()\n";
-    }
-    protected function tearDown()
-    {
-        echo "tearDown()\n";
-    }
-    */
+
+
     /**
      * A basic browser test example.
      *
