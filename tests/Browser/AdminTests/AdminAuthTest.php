@@ -13,7 +13,7 @@ class AdminAuthTest extends DuskTestCase
 
 
     /**
-     * A basic browser test example.
+     * NoAccessWithoutLogin.
      *
      * @return void
      */
@@ -25,8 +25,30 @@ class AdminAuthTest extends DuskTestCase
         });
 
     }
+
     /**
-     * A basic browser test example.
+     * LoginRejectsInvalidAdmin.
+     *
+     * @return void
+     */
+    public function testLoginRejectsInvalidAdmin()
+    {
+        $user = factory(Admin::class)->create([
+            'password' => bcrypt('somepass')//
+        ]);
+
+        $this->browse(function ($browser) use ($user) {
+            $browser->visit('/admin/login')
+                ->type('email', $user->email)
+                ->type('password', 'wrongpass')
+                ->press('Login')
+                ->assertPathIs('/admin/login');
+        });
+        $user->delete();
+    }
+    
+    /**
+     * LoginAcceptsValidAdmin
      *
      * @return void
      */
@@ -46,24 +68,5 @@ class AdminAuthTest extends DuskTestCase
         });
         $user->delete();
     }
-    /**
-     * A basic browser test example.
-     *
-     * @return void
-     */
-    public function testLoginRejectsInvalidAdmin()
-    {
-        $user = factory(Admin::class)->create([
-            'password' => bcrypt('somepass')//
-        ]);
 
-        $this->browse(function ($browser) use ($user) {
-            $browser->visit('/admin/login')
-                ->type('email', $user->email)
-                ->type('password', 'wrongpass')
-                ->press('Login')
-                ->assertPathIs('/admin/login');
-        });
-        $user->delete();
-    }
 }
