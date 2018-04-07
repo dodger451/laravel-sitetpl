@@ -7,7 +7,13 @@ use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use PHPUnit\Framework\TestResult;
 
+/**
+ * Class DuskTestCase
+ * @method run(TestResult $result = null): TestResult
+ * @package Tests
+ */
 abstract class DuskTestCase extends BaseTestCase
 {
     use CreatesApplication;

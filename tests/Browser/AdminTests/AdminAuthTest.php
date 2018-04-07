@@ -39,9 +39,9 @@ class AdminAuthTest extends DuskTestCase
 
         $this->browse(function ($browser) use ($user) {
             $browser->visit('/admin/login')
-                ->type('email', $user->email)
-                ->type('password', 'wrongpass')
-                ->press('Login')
+                ->type('@email-input', $user->email)
+                ->type('@password-input', 'wrongpass')
+                ->click('@login-button')
                 ->assertPathIs('/admin/login');
         });
         $user->delete();
@@ -61,9 +61,9 @@ class AdminAuthTest extends DuskTestCase
 
         $this->browse(function ($browser) use ($user, $password) {
             $browser->visit('/admin/login')
-                ->type('email', $user->email)
-                ->type('password', $password)
-                ->press('Login')
+                ->type('@email-input', $user->email)
+                ->type('@password-input', $password)
+                ->click('@login-button')
                 ->assertPathIs('/admin/home');
         });
         $user->delete();

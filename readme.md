@@ -2,10 +2,16 @@ Laravel site template
 
 ```sql
 mysql -uroot
+
 create database sitetpl;
-create database sitetpl_testing;
 grant all privileges on sitetpl.* to sitetpl@localhost;
+
+create database sitetpl_testing;
 grant all privileges on sitetpl_testing.* to sitetpl@localhost;
+
+create database sitetpl_dusk;
+grant all privileges on sitetpl_dusk.* to sitetpl@localhost;
+
 flush privileges;
 ```
 

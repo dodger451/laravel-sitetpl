@@ -53,7 +53,7 @@ class AdminsController extends Controller
             'password' => $request->input('password')
         ]);
 
-        return redirect()->route('admins.index')->with('success', __('general.form.flash.created',['name' => $admin->name]) );
+        return redirect()->route('admin.admins.index')->with('success', __('general.form.flash.created',['name' => $admin->name]) );
 
     }
 

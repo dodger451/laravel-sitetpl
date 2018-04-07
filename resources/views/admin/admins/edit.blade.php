@@ -19,7 +19,7 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">{{ __('name') }} <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" value="{{ $admin->name }}" id="name" name="name" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" value="{{ $admin->name }}" id="name" name="name" class="form-control col-md-7 col-xs-12" dusk="name-input">
                                     @if ($errors->has('name'))
                                         <span class="help-block">{{ $errors->first('name') }}</span>
                                     @endif
@@ -31,7 +31,7 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">{{ __('email') }} <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" value="{{ $admin->email }}" id="email" name="email" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" value="{{ $admin->email }}" id="email" name="email" class="form-control col-md-7 col-xs-12" dusk="email-input">
                                     @if ($errors->has('email'))
                                         <span class="help-block">{{ $errors->first('email') }}</span>
                                     @endif
@@ -42,7 +42,7 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">{{ __('password') }}<span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" value="" id="password" name="password" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" value="" id="password" name="password" class="form-control col-md-7 col-xs-12" dusk="password-input">
                                     @if ($errors->has('password'))
                                         <span class="help-block">{{ $errors->first('password') }}</span>
                                     @endif
@@ -57,7 +57,7 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                                     <input type="hidden" name="_token" value="{{ Session::token() }}">
                                     <input name="_method" type="hidden" value="PUT">
-                                    <button type="submit" class="btn btn-success">{{ __('update') }}</button>
+                                    <button type="submit" class="btn btn-success" dusk="update-button">{{ __('update') }}</button>
                                 </div>
                             </div>
                         </form>
