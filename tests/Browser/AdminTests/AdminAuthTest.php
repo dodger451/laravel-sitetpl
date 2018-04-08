@@ -3,6 +3,7 @@
 namespace Tests\Browser;
 
 use Sitetpl\Models\Admin;
+use Tests\Browser\Pages\AdminLoginPage;
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
 
@@ -10,8 +11,6 @@ use Laravel\Dusk\Browser;
 
 class AdminAuthTest extends DuskTestCase
 {
-
-
     /**
      * NoAccessWithoutLogin.
      *
@@ -23,7 +22,6 @@ class AdminAuthTest extends DuskTestCase
             $browser->visit('/admin/home')
                 ->assertPathIs('/login');
         });
-
     }
 
     /**
@@ -38,11 +36,12 @@ class AdminAuthTest extends DuskTestCase
         ]);
 
         $this->browse(function ($browser) use ($user) {
-            $browser->visit('/admin/login')
+            $page = new AdminLoginPage;
+            $browser->visit($page)
                 ->type('@email-input', $user->email)
                 ->type('@password-input', 'wrongpass')
                 ->click('@login-button')
-                ->assertPathIs('/admin/login');
+                ->assertPathIs($page->url());
         });
         $user->delete();
     }
@@ -60,7 +59,7 @@ class AdminAuthTest extends DuskTestCase
         ]);
 
         $this->browse(function ($browser) use ($user, $password) {
-            $browser->visit('/admin/login')
+            $browser->visit(new AdminLoginPage())
                 ->type('@email-input', $user->email)
                 ->type('@password-input', $password)
                 ->click('@login-button')
