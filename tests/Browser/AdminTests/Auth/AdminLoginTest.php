@@ -9,7 +9,7 @@ use Laravel\Dusk\Browser;
 
 
 
-class AdminAuthTest extends DuskTestCase
+class AdminLoginTest extends DuskTestCase
 {
     /**
      * NoAccessWithoutLogin.
