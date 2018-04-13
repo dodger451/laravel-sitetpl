@@ -6,21 +6,21 @@ namespace Sitetpl\Http\Controllers\Admin;
 
 use Sitetpl\Models\Admin;
 use Illuminate\Http\Request;
-
+use Faker\Generator as Faker;
 class AdminsController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the admins.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        // get all the nerds
-        $nerds = Admin::all();
+        // get all the admin
+        $admins = Admin::all();
 
-        // load the view and pass the nerds
-        return view('admin.admins.index', ['admins' => $nerds]);
+        // load the view and pass the admin
+        return view('admin.admins.index', ['admins' => $admins]);
     }
 
     /**
@@ -43,14 +43,15 @@ class AdminsController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|unique:admins',
-            'email' => 'required|unique:admins',
-            'password' => 'required',
+            'email' => 'required|email|unique:admins',
+            //'password' => 'required',
         ]);
 
         $admin = Admin::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'password' => $request->input('password')
+            'password' => str_random(16)
+            //'password' => $request->input('password')
         ]);
 
         return redirect()->route('admin.admins.index')->with('success', __('general.form.flash.created',['name' => $admin->name]) );
@@ -98,14 +99,12 @@ class AdminsController extends Controller
     {
 
         $this->validate($request, [
-            'name' => 'required|unique:admins',
-            'email' => 'required|email|unique:admins,email,'.$admin->id,
-            'password' => 'required',
+            'name' => 'required|unique:admins,name,'.$admin->id,
+            'email' => 'required|email|unique:admins,email,'.$admin->id
         ]);
 
         $admin->name = $request->input('name');
         $admin->email = $request->input('email');
-        $admin->password = $request->input('password');
 
         $admin->save();
 

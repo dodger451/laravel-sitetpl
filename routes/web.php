@@ -19,9 +19,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
 
     Route::group(['middleware' => ['auth:admin']], function () {
         // Protected Routes
-        Route::get('/home', 'HomeController@index')->name('home');
         Route::resource('users', 'UsersController');
         Route::resource('admins', 'AdminsController');
+        Route::get('/home', 'HomeController@index')->name('home');
     });
     
     // Authentication Admin Routes...

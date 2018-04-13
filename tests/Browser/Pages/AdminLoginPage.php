@@ -39,4 +39,10 @@ class AdminLoginPage extends Page
             '@element' => '#selector',
         ];
     }
+
+    public function loginWithCreds(Browser $browser, $email, $password) {
+        $browser->type('@email-input', $email)
+            ->type('@password-input', $password)
+            ->click('@login-button');
+    }
 }

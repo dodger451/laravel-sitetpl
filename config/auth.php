@@ -44,8 +44,7 @@ return [
             'driver' => 'session',
             'provider' => 'admins',
         ],
-        //TODO add admin guard wth admin provider
-
+        
         'api' => [
             'driver' => 'token',
             'provider' => 'users',

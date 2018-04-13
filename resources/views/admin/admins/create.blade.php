@@ -21,7 +21,7 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" value="{{ Request::old('name') ?: '' }}" id="name" name="name" class="form-control col-md-7 col-xs-12" dusk="name-input">
                                     @if ($errors->has('name'))
-                                        <span class="help-block">{{ $errors->first('name') }}</span>
+                                        <span class="help-block" dusk="name-error">{{ $errors->first('name') }}</span>
                                     @endif
                                 </div>
                             </div>
@@ -33,30 +33,19 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" value="{{ Request::old('email') ?: '' }}" id="email" name="email" class="form-control col-md-7 col-xs-12" dusk="email-input">
                                     @if ($errors->has('email'))
-                                        <span class="help-block">{{ $errors->first('email') }}</span>
+                                        <span class="help-block" dusk="email-error">{{ $errors->first('email') }}</span>
                                     @endif
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">{{ __('password') }}<span class="required">*</span>
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" value="{{ Request::old('password') ?: '' }}" id="password" name="password" class="form-control col-md-7 col-xs-12" dusk="password-input">
-                                    @if ($errors->has('password'))
-                                        <span class="help-block">{{ $errors->first('password') }}</span>
-                                    @endif
-                                </div>
-                            </div>
 
-                          
 
                             <div class="ln_solid"></div>
 
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                                     <input type="hidden" name="_token" value="{{ Session::token() }}">
-                                    <button type="submit" class="btn btn-success" dusk="create-button">{{ __('create') }}</button>
+                                    <button type="submit" class="btn btn-success" dusk="submit-button">{{ __('create') }}</button>
                                 </div>
                             </div>
                         </form>
