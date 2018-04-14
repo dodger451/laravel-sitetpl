@@ -2,6 +2,18 @@
 
 @section('content')
 <div class="container">
+    <script lang="">
+        function deleteByUrl(url) {
+            var form = document.getElementById("delete-form");
+            form.setAttribute("action", url);
+            form.submit();
+        }
+    </script>
+    <form id="delete-form" method="post" action="{{ route('admin.admins.destroy', ['id' => '__PLACEHOLDER_ID__']) }}" data-parsley-validate class="form-horizontal form-label-left">
+        <input type="hidden" name="_token" value="{{ Session::token() }}">
+        <input name="_method" type="hidden" value="DELETE">
+
+    </form>
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -32,8 +44,9 @@
 
                                     <td>
 
-                                        <a class="btn btn-small btn-success" href="admins/{{ $value->id }}">{{ __('Show') }}</a>
-                                        <a class="btn btn-small btn-info" href="admins/{{ $value->id }}/edit">{{ __('Edit') }}</a>
+                                        <a class="btn btn-small btn-success" href="{{ route('admin.admins.show', ['id' => $value->id]) }}">{{ __('Show') }}</a>
+                                        <a class="btn btn-small btn-info" href="{{ route('admin.admins.edit', ['id' => $value->id]) }}">{{ __('Edit') }}</a>
+                                        <a class="btn btn-small btn-info" onclick="deleteByUrl('{{ route('admin.admins.destroy', ['id' => $value->id]) }}');">{{ __('Delete') }}</a>
 
                                     </td>
                                 </tr>

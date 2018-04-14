@@ -11,6 +11,18 @@
 |
 */
 
+/*
+ * Route::resource admins creates:
+ *
+/*
+|        | GET|HEAD  | admin/admins                  | admin.admins.index     | Sitetpl\Http\Controllers\Admin\AdminsController@index                            | web,auth:admin |
+|        | POST      | admin/admins                  | admin.admins.store     | Sitetpl\Http\Controllers\Admin\AdminsController@store                            | web,auth:admin |
+|        | GET|HEAD  | admin/admins/create           | admin.admins.create    | Sitetpl\Http\Controllers\Admin\AdminsController@create                           | web,auth:admin |
+|        | PUT|PATCH | admin/admins/{admin}          | admin.admins.update    | Sitetpl\Http\Controllers\Admin\AdminsController@update                           | web,auth:admin |
+|        | GET|HEAD  | admin/admins/{admin}          | admin.admins.show      | Sitetpl\Http\Controllers\Admin\AdminsController@show                             | web,auth:admin |
+|        | DELETE    | admin/admins/{admin}          | admin.admins.destroy   | Sitetpl\Http\Controllers\Admin\AdminsController@destroy                          | web,auth:admin |
+|        | GET|HEAD  | admin/admins/{admin}/edit     | admin.admins.edit
+*/
 Route::get('/', function () {
     return view('welcome');
 });
