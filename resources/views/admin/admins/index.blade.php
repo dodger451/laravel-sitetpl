@@ -37,7 +37,7 @@
                             </thead>
                             <tbody>
                             @foreach($admins as $key => $value)
-                                <tr>
+                                <tr dusk="list-item">
                                     <td>{{ $value->id }}</td>
                                     <td>{{ $value->name }}</td>
                                     <td>{{ $value->email }}</td>
@@ -53,6 +53,7 @@
                             @endforeach
                             </tbody>
                         </table>
+                        {{ $admins->links() }}
                 </div>
             </div>
         </div>

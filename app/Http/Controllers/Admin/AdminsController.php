@@ -9,15 +9,16 @@ use Illuminate\Http\Request;
 use Faker\Generator as Faker;
 class AdminsController extends Controller
 {
+    const pagesize = 50;
     /**
      * Display a listing of the admins.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(\Illuminate\Http\Response $req)
     {
         // get all the admin
-        $admins = Admin::all();
+        $admins = Admin::simplePaginate($this::pagesize);
 
         // load the view and pass the admin
         return view('admin.admins.index', ['admins' => $admins]);
