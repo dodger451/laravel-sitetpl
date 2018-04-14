@@ -31,9 +31,14 @@ class AdminsIndexTest extends DuskTestCase
                 ->assertVisible('@delete-button-' . $user2->id);
 
             $browser->click('@delete-button-' . $user2->id)
-                ->assertPathIs('/admin/admins')
-                ->assertDontSee($user2->name);
-
+                ->assertPathIs('/admin/admins');
+            
+            $this->assertDatabaseMissing(
+                'admins',
+                [
+                    'id' => $user2->id
+                ])
+            ;
         });
     }
     
