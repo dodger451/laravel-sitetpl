@@ -46,14 +46,14 @@
 
                                         <a class="btn btn-small btn-success" href="{{ route('admin.admins.show', ['id' => $value->id]) }}">{{ __('Show') }}</a>
                                         <a class="btn btn-small btn-info" href="{{ route('admin.admins.edit', ['id' => $value->id]) }}">{{ __('Edit') }}</a>
-                                        <a class="btn btn-small btn-info" onclick="deleteByUrl('{{ route('admin.admins.destroy', ['id' => $value->id]) }}');" dusk="delete-button-{{ $value->id }}">{{ __('Delete') }}</a>
+                                        <a class="btn btn-small btn-warning" onclick="deleteByUrl('{{ route('admin.admins.destroy', ['id' => $value->id]) }}');" dusk="delete-button-{{ $value->id }}">{{ __('Delete') }}</a>
 
                                     </td>
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
-                        {{ $admins->links() }}
+                        {{ $admins->links('paginatorLinks') }}
                 </div>
             </div>
         </div>

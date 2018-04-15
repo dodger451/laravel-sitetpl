@@ -49,7 +49,10 @@ class AdminsIndexTest extends DuskTestCase
         $this->browse(function (\Laravel\Dusk\Browser $browser) use ($user, $password) {
             $browser
                 ->visit(new AdminLoginPage())->loginWithCreds($user->email, $password)
-                ->visit('/admin/admins?page=2')
+                ->visit('/admin/admins')
+                ->assertVisible('@next-page')
+                ->click('@next-page');
+            $browser
                 ->assertPathIs('/admin/admins')
                 ->assertQueryStringHas('page', '2')
                 ->assertVisible('@list-item');
