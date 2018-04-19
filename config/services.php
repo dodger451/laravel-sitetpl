@@ -30,7 +30,7 @@ return [
     ],
 
     'stripe' => [
-        'model' => Sitetpl\User::class,
+        'model' => Sitetpl\Models\User::class,
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],

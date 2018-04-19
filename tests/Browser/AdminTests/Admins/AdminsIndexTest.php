@@ -42,7 +42,7 @@ class AdminsIndexTest extends DuskTestCase
             'password' => bcrypt($password)//
         ]);
 
-        for($i = 0; $i < (AdminsController::pagesize); $i++) {
+        for($i = 0; $i < (AdminsController::PAGESIZE); $i++) {
             factory(Admin::class)->create();
         }
 

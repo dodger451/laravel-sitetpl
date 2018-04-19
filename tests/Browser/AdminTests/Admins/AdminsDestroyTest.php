@@ -9,7 +9,7 @@ use Laravel\Dusk\Browser;
 use Faker\Generator as Faker;
 
 
-class AdminsIndexTest extends DuskTestCase
+class AdminsDestroyTest extends DuskTestCase
 {
 
     /**
