@@ -12,88 +12,79 @@ use Faker\Generator as Faker;
 class AdminsCreateTest extends DuskTestCase
 {
 
-    private $faker;
+	private $faker;
 
 
-    /**
-     *
-     * @return void
-     */
-    public function testAdminCreateInserts()
-    {
-        $password = 'password';
-        $user = factory(Admin::class)->create([
-            'password' => bcrypt($password)//
-        ]);
-        $this->browse(function (\Laravel\Dusk\Browser $browser) use ($user, $password) {
+	/**
+	 *
+	 * @return void
+	 */
+	public function testAdminCreateInserts()
+	{
+		$password = 'password';
+		$user = factory(Admin::class)->create(['password' => bcrypt($password)//
+		]);
+		$this->browse(function (\Laravel\Dusk\Browser $browser) use ($user, $password) {
 
-            $browser->visit(new AdminLoginPage())->loginWithCreds($user->email, $password);
+			$browser->visit(new AdminLoginPage())
+				->loginWithCreds($user->email, $password);
 
 //            $browser->loginAs($user, 'admin');
-            $browser->visit('/admin/admins/create');
+			$browser->visit('/admin/admins/create');
 
-            $newName = 'name';
-            $browser->type('@name-input', $newName);
+			$newName = 'name';
+			$browser->type('@name-input', $newName);
 
-            $newEmail = 'email@sitetpl.com';
-            $browser->type('@email-input', $newEmail);
+			$newEmail = 'email@sitetpl.com';
+			$browser->type('@email-input', $newEmail);
 
-            $browser->click('@submit-button')
-                ->assertPathIs('/admin/admins');
+			$browser->click('@submit-button')
+				->assertPathIs('/admin/admins');
 
-            $this->assertDatabaseHas(
-                'admins',
-                [
-                    'name' => $newName,
-                    'email' => $newEmail,
-                ])
-            ;
+			$this->assertDatabaseHas('admins', ['name' => $newName, 'email' => $newEmail,]);
+		});
+	}
 
-        });
-    }
+	/**
+	 *
+	 * @return void
+	 */
+	public function testAdminCreateValidates()
+	{
 
-    /**
-     *
-     * @return void
-     */
-    public function testAdminCreateValidates()
-    {
+		factory(Admin::class)->create();
 
-        factory(Admin::class)->create();
+		$this->browse(function (\Laravel\Dusk\Browser $browser) {
+			$browser->loginAs(Admin::all()
+				->first(), 'admin');
 
-        $this->browse(function (\Laravel\Dusk\Browser $browser) {
-            $browser->loginAs(Admin::all()->first(), 'admin');
+			$browser->visit('/admin/admins/create');
+			//name
+			$browser->type('@name-input', '')
+				->click('@submit-button')
+				->assertPathIs('/admin/admins/create')
+				->assertVisible('@name-error');
 
-            $browser->visit('/admin/admins/create');
-            //name
-            $browser->type('@name-input', '')
-                ->click('@submit-button')
-                ->assertPathIs('/admin/admins/create')
-                ->assertVisible('@name-error');
+			$otherUser = factory(Admin::class)->create();
+			$browser->type('@name-input', $otherUser->name)
+				->click('@submit-button')
+				->assertPathIs('/admin/admins/create')
+				->assertVisible('@name-error')
+				->type('@name-input', 'new_valid_name_testAdminCreateValidates');
 
-            $otherUser = factory(Admin::class)->create();
-            $browser->type('@name-input', $otherUser->name)
-                ->click('@submit-button')
-                ->assertPathIs('/admin/admins/create')
-                ->assertVisible('@name-error')
-                ->type('@name-input', 'new_valid_name_testAdminCreateValidates');
+			//email
+			$browser->type('@email-input', '')
+				->click('@submit-button')
+				->assertPathIs('/admin/admins/create')
+				->assertVisible('@email-error')
+				->type('@email-input', 'testAdminCreateValidates@sitetpl.com');
 
-            //email
-            $browser->type('@email-input', '')
-                ->click('@submit-button')
-                ->assertPathIs('/admin/admins/create')
-                ->assertVisible('@email-error')
-                ->type('@email-input', 'testAdminCreateValidates@sitetpl.com');
-
-            $browser->type('@email-input', 'email.com')
-                ->click('@submit-button')
-                ->assertPathIs('/admin/admins/create')
-                ->assertVisible('@email-error')
-                ->type('@email-input', 'testAdminCreateValidates@sitetpl.com');
-            ;
-
- 
-        });
-    }
+			$browser->type('@email-input', 'email.com')
+				->click('@submit-button')
+				->assertPathIs('/admin/admins/create')
+				->assertVisible('@email-error')
+				->type('@email-input', 'testAdminCreateValidates@sitetpl.com');
+		});
+	}
 
 }
