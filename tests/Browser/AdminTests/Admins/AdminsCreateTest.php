@@ -12,9 +12,6 @@ use Faker\Generator as Faker;
 class AdminsCreateTest extends DuskTestCase
 {
 
-	private $faker;
-
-
 	/**
 	 *
 	 * @return void
