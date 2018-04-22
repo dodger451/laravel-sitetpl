@@ -66,8 +66,27 @@ class CodequalityProvider extends ServiceProvider
         );
         exit($retval);
     }
-
-    public static function runOnPhpFile($target, $callback)
+    
+    /**
+     * php -l
+     *
+     */
+    public static function phpLint($targets)
+    {
+        $config = CodequalityProvider::getConfig();
+        $targets = count($targets) > 0 ? $targets : explode(' ', $config['phplint_target']);
+        foreach ($targets as $target) {
+            CodequalityProvider::runRecurseOnPhpFiles($target, function ($file) use ($config) {
+                system($config['php'] . ' -l ' . ' ' . $file . ' \;', $retval);
+                
+                if ( 0 != $retval) {
+                    exit(1);
+                }
+            });
+        }
+    }
+    
+    protected static function runRecurseOnPhpFiles($target, $callback)
     {
         if (is_file($target) && preg_match('/^.*\.(php)$/i', $target)) {
             $callback($target);
@@ -82,32 +101,7 @@ class CodequalityProvider extends ServiceProvider
             }
         }
     }
-
-    protected static function runLint($phpFile, $phpBin)
-    {
-        $cmd = $phpBin . ' -l ' . ' ' . $phpFile . ' \;';
-        //echo $cmd;
-        system($cmd, $retval);
-        return 0 == $retval;
-    }
-
-    /**
-     * php -l
-     *
-     */
-    public static function phpLint($targets)
-    {
-        $config = CodequalityProvider::getConfig();
-        $targets = count($targets) > 0 ? $targets : explode(' ', $config['phplint_target']);
-        foreach ($targets as $target) {
-            CodequalityProvider::runOnPhpFile($target, function ($file) use ($config) {
-                if (!CodequalityProvider::runLint($file, $config['php'])) {
-                    exit(1);
-                }
-            });
-        }
-    }
-
+    
     /**
      * All tools configs
      */
