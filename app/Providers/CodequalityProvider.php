@@ -4,10 +4,9 @@ namespace Sitetpl\Providers;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 /**
- * Class PHPCSProvider was initally a copy of https://github.com/nunun/laravel-phpcs
  *
- * Modified to use phpcs pragmarx standard.
  *
+ * @SuppressWarnings(PHPMD.ExitExpression)
  * @see https://github.com/nunun/laravel-phpcs
  * @package Sitetpl\Providers
  */
@@ -35,6 +34,11 @@ class CodequalityProvider extends ServiceProvider
             CodequalityProvider::phpLint($targets);
         })
             ->describe('Find syntax errors via php -l on all files');
+
+        \Artisan::command('phpmd {targets?*}', function ($targets) {
+            CodequalityProvider::phpmd($targets);
+        })
+            ->describe('Find messy code via phpmd ');
     }
 
     /**
@@ -66,7 +70,7 @@ class CodequalityProvider extends ServiceProvider
         );
         exit($retval);
     }
-    
+
     /**
      * php -l
      *
@@ -78,14 +82,31 @@ class CodequalityProvider extends ServiceProvider
         foreach ($targets as $target) {
             CodequalityProvider::runRecurseOnPhpFiles($target, function ($file) use ($config) {
                 system($config['php'] . ' -l ' . ' ' . $file . ' \;', $retval);
-                
-                if ( 0 != $retval) {
+
+                if (0 != $retval) {
                     exit(1);
                 }
             });
         }
     }
-    
+
+    /**
+     * phpmd
+     *
+     */
+    public static function phpmd($targets)
+    {
+        $config = CodequalityProvider::getConfig();
+        $targets = count($targets) > 0 ? $targets : explode(' ', $config['phpmd_target']);
+        foreach ($targets as $target) {
+            system($config['phpmd'] . ' ' . $target . ' text ' . $config['phpmd_standard'] . ' \;', $retval);
+
+            if (0 != $retval) {
+                exit(1);
+            }
+        }
+    }
+
     protected static function runRecurseOnPhpFiles($target, $callback)
     {
         if (is_file($target) && preg_match('/^.*\.(php)$/i', $target)) {
@@ -101,9 +122,11 @@ class CodequalityProvider extends ServiceProvider
             }
         }
     }
-    
+// @codingStandardsIgnoreStart
     /**
      * All tools configs
+     *
+     * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
      */
     private static function getConfig()
     {
@@ -113,8 +136,12 @@ class CodequalityProvider extends ServiceProvider
             'phpcs' => base_path('vendor/squizlabs/php_codesniffer/bin/phpcs'),
             'phpcbf' => base_path('vendor/squizlabs/php_codesniffer/bin/phpcbf'),
             'phpcs_standard' => '--standard=config/phpcs/',
+            'phpmd' => base_path('vendor/phpmd/phpmd/src/bin/phpmd'),
+            'phpmd_standard' => 'config/phpmd/rulesets/cleancode,config/phpmd/rulesets/codesize,config/phpmd/rulesets/controversial,config/phpmd/rulesets/design,config/phpmd/rulesets/naming,config/phpmd/rulesets/unusedcode',
             'phpcs_target' => 'tests routes config app',
             'phplint_target' => 'tests routes config app',
+            'phpmd_target' => 'tests routes config app',
         ];
     }
+// @codingStandardsIgnoreEnd
 }
