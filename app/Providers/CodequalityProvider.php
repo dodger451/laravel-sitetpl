@@ -39,6 +39,13 @@ class CodequalityProvider extends ServiceProvider
             CodequalityProvider::phpmd($targets);
         })
             ->describe('Find messy code via phpmd ');
+        
+        \Artisan::command('codequality {targets?*}', function ($targets) {
+            CodequalityProvider::phpLint($targets);
+            CodequalityProvider::phpcsCheck($targets);
+            CodequalityProvider::phpmd($targets);
+        })
+            ->describe('phplint, phpcs, phpmd ');
     }
 
     /**
@@ -46,13 +53,18 @@ class CodequalityProvider extends ServiceProvider
      */
     public static function phpcsCheck($targets)
     {
+        
         $config = CodequalityProvider::getConfig();
+        echo $config['php'] . ' ' . $config['phpcs'] . ' ' . $config['phpcs_standard'] . ' ' .
+            (count($targets) > 0 ? implode(' ', $targets) : $config['phpcs_target']) . PHP_EOL;
         system(
             $config['php'] . ' ' . $config['phpcs'] . ' ' . $config['phpcs_standard'] . ' ' .
             (count($targets) > 0 ? implode(' ', $targets) : $config['phpcs_target']),
             $retval
         );
-        exit($retval);
+        if (0 != $retval) {
+            exit(1);
+        }
     }
 
     /**
@@ -62,13 +74,18 @@ class CodequalityProvider extends ServiceProvider
     public static function phpcsFix($targets)
     {
         $config = CodequalityProvider::getConfig();
+        echo $config['php'] . ' ' . $config['phpcbf']
+            . ' ' . $config['phpcs_standard'] . ' ' . (count($targets) > 0
+                ? implode(' ', $targets) : $config['phpcs_target']) . PHP_EOL;
         system(
             $config['php'] . ' ' . $config['phpcbf']
             . ' ' . $config['phpcs_standard'] . ' ' . (count($targets) > 0
                 ? implode(' ', $targets) : $config['phpcs_target']),
             $retval
         );
-        exit($retval);
+        if (0 != $retval) {
+            exit(1);
+        }
     }
 
     /**
@@ -99,6 +116,7 @@ class CodequalityProvider extends ServiceProvider
         $config = CodequalityProvider::getConfig();
         $targets = count($targets) > 0 ? $targets : explode(' ', $config['phpmd_target']);
         foreach ($targets as $target) {
+            echo $config['phpmd'] . ' ' . $target . ' text ' . $config['phpmd_standard'] . ' \;' . PHP_EOL;
             system($config['phpmd'] . ' ' . $target . ' text ' . $config['phpmd_standard'] . ' \;', $retval);
 
             if (0 != $retval) {
@@ -122,7 +140,6 @@ class CodequalityProvider extends ServiceProvider
             }
         }
     }
-// @codingStandardsIgnoreStart
     /**
      * All tools configs
      *
@@ -137,11 +154,15 @@ class CodequalityProvider extends ServiceProvider
             'phpcbf' => base_path('vendor/squizlabs/php_codesniffer/bin/phpcbf'),
             'phpcs_standard' => '--standard=config/phpcs/',
             'phpmd' => base_path('vendor/phpmd/phpmd/src/bin/phpmd'),
-            'phpmd_standard' => 'config/phpmd/rulesets/cleancode,config/phpmd/rulesets/codesize,config/phpmd/rulesets/controversial,config/phpmd/rulesets/design,config/phpmd/rulesets/naming,config/phpmd/rulesets/unusedcode',
+            'phpmd_standard' => 'config/phpmd/rulesets/cleancode' .
+                ',config/phpmd/rulesets/codesize' .
+                ',config/phpmd/rulesets/controversial' .
+                ',config/phpmd/rulesets/design' .
+                ',config/phpmd/rulesets/naming' .
+                ',config/phpmd/rulesets/unusedcode',
             'phpcs_target' => 'tests routes config app',
             'phplint_target' => 'tests routes config app',
             'phpmd_target' => 'tests routes config app',
         ];
     }
-// @codingStandardsIgnoreEnd
 }
