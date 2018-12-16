@@ -1,0 +1,11 @@
+language: php
+php:
+  - '7.1'
+  - '7.2'
+  - nightly
+
+install:
+  - composer install
+
+script:
+  - php artisan cc:all
