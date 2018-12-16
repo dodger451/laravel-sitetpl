@@ -5,7 +5,7 @@ Laravel site template
  sudo apt-get install nginx
 
  sudo apt-get install php7.2-fpm
- sudo apt-get install php7.2-mbstring php7.2-curl php7.2-dom php7.2-xml php7.2-zip
+ sudo apt-get install php7.2-mbstring php7.2-curl php7.2-dom php7.2-xml php7.2-zip php7.2-mysql
  sudo apt-get install composer
 ```
 ## Setup DB
