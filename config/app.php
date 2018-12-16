@@ -156,8 +156,7 @@ return [
         Sitetpl\Providers\AppServiceProvider::class, Sitetpl\Providers\AuthServiceProvider::class,
         // Sitetpl\Providers\BroadcastServiceProvider::class,
         Sitetpl\Providers\EventServiceProvider::class, Sitetpl\Providers\RouteServiceProvider::class,
-        Sitetpl\Providers\CodequalityProvider::class, Sitetpl\Providers\CodequalityProvider::class,
-
+        
     ],
 
     /*

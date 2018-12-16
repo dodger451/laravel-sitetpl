@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "bcb0362a54e1055d73a540565d855a9d",
+    "content-hash": "62040b36904b184869cac1ab184622a1",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -2618,6 +2618,72 @@
             "time": "2017-07-22T11:58:36+00:00"
         },
         {
+            "name": "dodger451/laravelcodechecker",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dodger451/laravelcodechecker.git",
+                "reference": "c4bf132cae54b17bb010f7b032886328dae81f2e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dodger451/laravelcodechecker/zipball/c4bf132cae54b17bb010f7b032886328dae81f2e",
+                "reference": "c4bf132cae54b17bb010f7b032886328dae81f2e",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5",
+                "phpmd/phpmd": "^2.6",
+                "squizlabs/php_codesniffer": "^3.2",
+                "symfony/process": "^4.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.1",
+                "orchestra/testbench": "~3.0",
+                "phpunit/phpunit": "^7.4",
+                "sempro/phpunit-pretty-print": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "dodger451\\LaravelCodeChecker\\LaravelCodeCheckerServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "dodger451\\LaravelCodeChecker\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "dodger451\\LaravelCodeChecker\\Tests\\": "tests"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "david latotzky",
+                    "email": "david-laravelcodechecker@latotzky.de",
+                    "homepage": "http://david.latotzky.de"
+                }
+            ],
+            "description": "Basic configurable phpmd, phpcs and lint setup with artisan support",
+            "homepage": "https://github.com/dodger451/laravelcodechecker",
+            "keywords": [
+                "Laravel",
+                "LaravelCodeChecker"
+            ],
+            "support": {
+                "source": "https://github.com/dodger451/laravelcodechecker/tree/master",
+                "issues": "https://github.com/dodger451/laravelcodechecker/issues"
+            },
+            "time": "2018-12-16T01:08:52+00:00"
+        },
+        {
             "name": "facebook/webdriver",
             "version": "1.5.0",
             "source": {
@@ -4422,7 +4488,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "dodger451/laravelcodechecker": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
