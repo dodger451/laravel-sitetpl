@@ -12,10 +12,12 @@ before_install:
   - sh -e /etc/init.d/xvfb start
   - ./vendor/laravel/dusk/bin/chromedriver-linux &
   - cp .env.dusk .env
-  - php artisan serve &
 
 install:
   - composer install
+
+after_install:
+  - php artisan serve &
 
 script:
   - php artisan cc:all
