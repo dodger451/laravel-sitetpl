@@ -7,7 +7,7 @@ services:
   - mysql
 
 before_install:
-  - mysql -e 'CREATE DATABASE sitetpl_test;'
+  - mysql -e 'CREATE DATABASE sitetpl_dusk;'
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
   - ./vendor/laravel/dusk/bin/chromedriver-linux &
