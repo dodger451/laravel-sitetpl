@@ -21,4 +21,4 @@ after_install:
 
 script:
   - php artisan cc:all
-  - php artisan dusk
+  #- php artisan dusk
