@@ -2623,12 +2623,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dodger451/laravelcodechecker.git",
-                "reference": "4a4e93e5f1d776d289d672dffcab625d72d205f7"
+                "reference": "96c330b805a506732abdb7cd387ef19fde4153db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dodger451/laravelcodechecker/zipball/4a4e93e5f1d776d289d672dffcab625d72d205f7",
-                "reference": "4a4e93e5f1d776d289d672dffcab625d72d205f7",
+                "url": "https://api.github.com/repos/dodger451/laravelcodechecker/zipball/96c330b805a506732abdb7cd387ef19fde4153db",
+                "reference": "96c330b805a506732abdb7cd387ef19fde4153db",
                 "shasum": ""
             },
             "require": {
@@ -2681,7 +2681,7 @@
                 "source": "https://github.com/dodger451/laravelcodechecker/tree/master",
                 "issues": "https://github.com/dodger451/laravelcodechecker/issues"
             },
-            "time": "2018-12-17T21:43:29+00:00"
+            "time": "2018-12-17T22:06:50+00:00"
         },
         {
             "name": "facebook/webdriver",
