@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "aed5e5ec9eaa1647fee070dd63695083",
+    "content-hash": "b1ee9981d1510a17f5e6c15a82b1d9b4",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -2619,16 +2619,16 @@
         },
         {
             "name": "dodger451/laravelcodechecker",
-            "version": "dev-master",
+            "version": "1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dodger451/laravelcodechecker.git",
-                "reference": "96c330b805a506732abdb7cd387ef19fde4153db"
+                "reference": "eedae72f8c079e265b322b426f8a2c78cea2a2b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dodger451/laravelcodechecker/zipball/96c330b805a506732abdb7cd387ef19fde4153db",
-                "reference": "96c330b805a506732abdb7cd387ef19fde4153db",
+                "url": "https://api.github.com/repos/dodger451/laravelcodechecker/zipball/eedae72f8c079e265b322b426f8a2c78cea2a2b4",
+                "reference": "eedae72f8c079e265b322b426f8a2c78cea2a2b4",
                 "shasum": ""
             },
             "require": {
@@ -2656,11 +2656,7 @@
                     "dodger451\\LaravelCodeChecker\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "dodger451\\LaravelCodeChecker\\Tests\\": "tests"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -2674,14 +2670,10 @@
             "description": "Basic configurable phpmd, phpcs and lint setup with artisan support",
             "homepage": "https://github.com/dodger451/laravelcodechecker",
             "keywords": [
-                "Laravel",
-                "LaravelCodeChecker"
+                "LaravelCodeChecker",
+                "laravel"
             ],
-            "support": {
-                "source": "https://github.com/dodger451/laravelcodechecker/tree/master",
-                "issues": "https://github.com/dodger451/laravelcodechecker/issues"
-            },
-            "time": "2018-12-17T22:06:50+00:00"
+            "time": "2019-01-17T22:40:15+00:00"
         },
         {
             "name": "facebook/webdriver",
@@ -4488,9 +4480,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "dodger451/laravelcodechecker": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
