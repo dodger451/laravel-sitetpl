@@ -21,9 +21,9 @@ class AdminsCreateTest extends DuskTestCase
         $user = factory(Admin::class)->create(['password' => bcrypt($password)//
         ]);
         $this->browse(function (\Laravel\Dusk\Browser $browser) use ($user, $password) {
-
-            $browser->visit(new AdminLoginPage())
-                ->loginWithCreds($user->email, $password);
+            $browser->visit(new AdminLoginPage());
+            echo($browser->driver->getPageSource());
+            $browser->loginWithCreds($user->email, $password);
 
 //            $browser->loginAs($user, 'admin');
             $browser->visit('/admin/admins/create');

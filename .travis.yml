@@ -14,10 +14,7 @@ before_install:
 
 install:
   - composer install
-
-after_install:
-  - php artisan serve &
-
 script:
   - php artisan cc:all
+  - php artisan serve &
   - php artisan dusk
