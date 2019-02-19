@@ -14,7 +14,10 @@ before_install:
 
 install:
   - composer install
+
+after_install:
+  - php artisan serve --port=8088 &
+
 script:
   - php artisan cc:all
-  - php artisan serve &
   - php artisan dusk
