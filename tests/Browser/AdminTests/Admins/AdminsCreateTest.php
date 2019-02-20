@@ -22,9 +22,7 @@ class AdminsCreateTest extends DuskTestCase
         ]);
         $this->browse(function (\Laravel\Dusk\Browser $browser) use ($user, $password) {
             $browser->visit(new AdminLoginPage());
-            echo($browser->driver->getPageSource());
             $browser->loginWithCreds($user->email, $password);
-
 //            $browser->loginAs($user, 'admin');
             $browser->visit('/admin/admins/create');
 
