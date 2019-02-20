@@ -18,5 +18,5 @@ install:
 
 script:
   - php artisan cc:all
-  - php artisan serve --port=8088 &
+  - php artisan serve --port=8088 --quiet &
   - php artisan dusk --env=dusk
