@@ -14,7 +14,7 @@ before_install:
 
 install:
   - composer install
-  - php artisan migrate
+  - php artisan migrate --env=dusk
 
 script:
   - php artisan cc:all
