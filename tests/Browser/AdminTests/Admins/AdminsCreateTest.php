@@ -23,17 +23,20 @@ class AdminsCreateTest extends DuskTestCase
         $this->browse(function (\Laravel\Dusk\Browser $browser) use ($user, $password) {
             $browser->visit(new AdminLoginPage());
 
+            echo PHP_EOL. '--------------'.PHP_EOL;
             echo 'base:'.$browser::$baseUrl.PHP_EOL;
             echo 'visit new AdminLoginPage'.PHP_EOL;
             echo '------------------------'.PHP_EOL;
             echo($browser->driver->getPageSource());
             $browser->loginWithCreds($user->email, $password);
+            echo PHP_EOL. '--------------'.PHP_EOL;
             echo 'loginWithCreds'.PHP_EOL;
             echo '--------------'.PHP_EOL;
             echo($browser->driver->getPageSource());
 
 //            $browser->loginAs($user, 'admin');
             $browser->visit('/admin/admins/create');
+            echo PHP_EOL. '--------------'.PHP_EOL;
             echo 'visit /admin/admins/create'.PHP_EOL;
             echo '--------------------------'.PHP_EOL;
             echo($browser->driver->getPageSource());
