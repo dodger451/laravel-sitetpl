@@ -12,22 +12,30 @@
 */
 
 /*
- * Route::resource admins creates:
- *
+ * public user routes
  */
 Route::get('/', function () {
     return view('welcome');
 });
+// Register, Authentication  & Password Reset User Routes...
+Auth::routes();
 
+/*
+ * Protected user routes only for logged in users
+ */
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/home', 'HomeController@index')
+        ->name('home');
+});
+
+/*
+ * admin routes
+ */
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {
 
-    Route::group(['middleware' => ['auth:admin']], function () {
-        // Protected Routes
-        Route::resource('users', 'UsersController');
-        Route::resource('admins', 'AdminsController');
-        Route::get('/home', 'HomeController@index')
-            ->name('home');
-    });
+    /*
+     * public admin routes
+     */
 
     // Authentication Admin Routes...
     $this->get('login', 'Auth\LoginController@showLoginForm')
@@ -44,9 +52,15 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
     $this->get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')
         ->name('password.reset');
     $this->post('password/reset', 'Auth\ResetPasswordController@reset');
+
+    /*
+     * protected admin routes
+     */
+    Route::group(['middleware' => ['auth:admin']], function () {
+        Route::resource('users', 'UsersController');
+        Route::resource('admins', 'AdminsController');
+        Route::get('/home', 'HomeController@index')
+            ->name('home');
+    });
 });
-// Register, Authentication  & Password Reset User Routes...
-Auth::routes();
-//User Routes set own guards
-Route::get('/home', 'HomeController@index')
-    ->name('home');
+
