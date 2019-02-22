@@ -22,7 +22,7 @@ class ReadAccessLog extends Command
     protected $description = 'Read accesslog and matches with routes';
 
     //protected static $defaultFormat = '%h %l %u %t "%r" %>s %b';
-    protected static $defaultFormat = '%a - %u %t "%r" %>s %b "%U" ".*"';
+    protected static $defaultFormat = '%a - %u %t "%m %c %e" %>s %b "%U" ".*"';
     protected $pcreFormat;
     protected $patterns = [
         '%%' => '(?P<percent>\%)',
@@ -32,6 +32,8 @@ class ReadAccessLog extends Command
         '%l' => '(?P<logname>(?:-|[\w-]+))',
         '%m' => '(?P<requestMethod>OPTIONS|GET|HEAD|POST|PUT|DELETE|TRACE|CONNECT|PATCH|PROPFIND)',
         '%p' => '(?P<port>\d+)',
+        '%e' => '(?P<requestVersion>(?:HTTP/1.(?:0|1))|-|)',
+        '%c' => '(?P<requestUri>(?:.+?))',
         '%r' => '(?P<request>(?:(?:[A-Z]+) .+? HTTP/1.(?:0|1))|-|)',
         '%t' => '\[(?P<time>\d{2}/(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)/\d{4}:\d{2}:\d{2}:\d{2} (?:-|\+)\d{4})\]',
         '%u' => '(?P<user>(?:-|[\w-]+))',
@@ -69,10 +71,7 @@ class ReadAccessLog extends Command
         $this->setFormat(self::getDefaultFormat());
     }
 
-    public static function getDefaultFormat()
-    {
-        return self::$defaultFormat;
-    }
+
     /**
      * Execute the console command.
      *
@@ -85,10 +84,12 @@ class ReadAccessLog extends Command
         $parsed = $this->parse($logline);
         dd($parsed);
     }
-    public function addPattern($placeholder, $pattern)
+
+    public static function getDefaultFormat()
     {
-        $this->patterns[$placeholder] = $pattern;
+        return self::$defaultFormat;
     }
+
 
     public function setFormat($format)
     {
