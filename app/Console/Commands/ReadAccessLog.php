@@ -3,7 +3,8 @@
 namespace Sitetpl\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\File;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ReadAccessLog extends Command
 {
@@ -79,10 +80,22 @@ class ReadAccessLog extends Command
      */
     public function handle()
     {
-        $logline = file_get_contents('php://stdin');
-        echo $logline;
-        $parsed = $this->parse($logline);
-        dd($parsed);
+        while ($line = fgets(STDIN)) {
+            try {
+                $urldecoded = parse_url($this->parse($line)->requestUri);
+                $parameters = [];
+                if(isset($urldecoded['query'])) {
+                    parse_str($urldecoded['query'], $parameters);
+                }
+                $request = Request::create($urldecoded['path'], 'GET', $parameters);
+                $route = app(\Illuminate\Routing\Router::class)->getRoutes()->match($request);
+                echo $route->getActionName() . ' ' . ($route->getName()) . PHP_EOL;
+            } catch (NotFoundHttpException $e){
+                echo 'UNKNOWN' . PHP_EOL;
+            } catch (\Exception $e) {
+                echo 'ERROR' . PHP_EOL;
+            }
+        }
     }
 
     public static function getDefaultFormat()
