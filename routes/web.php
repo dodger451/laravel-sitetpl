@@ -26,6 +26,17 @@ Auth::routes();
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', 'HomeController@index')
         ->name('home');
+    
+    // Profile
+    Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
+
+        Route::get('', 'ProfileController@show')
+            ->name('show');
+        Route::get('/edit', 'ProfileController@edit')
+            ->name('edit');
+        Route::post('/update', 'ProfileController@update')
+            ->name('update');
+    });
 });
 
 /*
